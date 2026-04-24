@@ -5,7 +5,8 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build-and-test:
+  build:
+    name: Build Application
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +27,31 @@ jobs:
       working-directory: ./application
       # --no-restore makes it faster since we did it in the previous step
       run: dotnet build --no-restore --configuration Release
+
+    # Upload the compiled binaries so the next job can use them
+    - name: Upload Build Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-output
+        path: src/bin/Release/net10.0/
+
+  test:
+    name: Run Tests
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 10
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '10.0.x'
+    
+    - name: Download Build Artifacts
+      uses: actions/download-artifact@v4
+      with:
+        name: build-output
+        path: src/bin/Release/net10.0/
 
     - name: Run Tests
       working-directory: ./application/tests
