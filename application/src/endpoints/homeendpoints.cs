@@ -15,11 +15,19 @@ public static class HomeEndpoints
 
         // Map the specific endpoints to handler methods
         locations.MapGet("/", GetAllLocations);
+        locations.MapPost("/", CreateLocation);
     }
 
     private static async Task<Ok<List<HomeLocation>>> GetAllLocations(SmartHomeContext db)
     {
         var data = await db.Locations.AsNoTracking().ToListAsync();
         return TypedResults.Ok(data);
+    }
+
+    private static async Task<Created<HomeLocation>> CreateLocation(HomeLocation location, SmartHomeContext db)
+    {
+        db.Locations.Add(location);
+        await db.SaveChangesAsync();
+        return TypedResults.Created($"/api/v1/locations/{location.Id}", location);
     }
 }

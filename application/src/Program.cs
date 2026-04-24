@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using SmartHome.Data;
 using SmartHome.Endpoints;
 
@@ -26,6 +27,12 @@ var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
+
+    // Add swagger UI for testing the API
+    app.UseSwaggerUI(options =>
+    {
+        options.SwaggerEndpoint("/openapi/v1.json", "Smart Home API V1");
+    });
 
     // Seed the in-memory database with initial data
     using var scope = app.Services.CreateScope();
