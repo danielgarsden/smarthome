@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\SmartHome.csproj" />
+    <ProjectReference Include="..\src\smarthome.csproj" />
   </ItemGroup>
 
 </Project>
