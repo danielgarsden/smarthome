@@ -57,4 +57,4 @@ jobs:
 
     - name: Run Tests
       working-directory: ./application
-      run: dotnet test tests/SmartHome.Tests.csproj --no-restore --configuration Release --verbosity normal
+      run: dotnet test tests/SmartHome.Tests.csproj --no-restore --configuration Release
