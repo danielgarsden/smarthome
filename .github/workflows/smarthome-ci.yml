@@ -26,7 +26,6 @@ jobs:
       working-directory: ./application
       run: dotnet build --no-restore --configuration Release
 
-    # Upload the compiled binaries so the next job can use them
     - name: Upload Build Artifacts
       uses: actions/upload-artifact@v5
       with:
@@ -52,7 +51,10 @@ jobs:
         name: build-output
         path: application/
 
+    - name: Restore Dependencies
+      working-directory: ./application
+      run: dotnet restore
+
     - name: Run Tests
-      working-directory: ./application/tests
-      # Run tests
-      run: dotnet test --no-build --configuration Release --verbosity normal
+      working-directory: ./application
+      run: dotnet test tests/SmartHome.Tests.csproj --no-restore --configuration Release --verbosity normal
