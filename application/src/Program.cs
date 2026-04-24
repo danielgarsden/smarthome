@@ -33,11 +33,6 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/openapi/v1.json", "Smart Home API V1");
     });
-
-    // Seed the in-memory database with initial data
-    using var scope = app.Services.CreateScope();
-    var db = scope.ServiceProvider.GetRequiredService<SmartHomeContext>();
-    DbInitializer.Seed(db);
 }
 
 app.UseHttpsRedirection();

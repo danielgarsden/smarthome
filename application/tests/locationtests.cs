@@ -6,11 +6,11 @@ using Microsoft.VisualStudio.TestPlatform.TestHost;
 
 namespace SmartHome.Tests;
 
-public class LocationTests : IClassFixture<WebApplicationFactory<Program>>
+public class LocationTests : IClassFixture<SmartHomeApiFactory>
 {
-    private readonly WebApplicationFactory<Program> _factory;
+    private readonly SmartHomeApiFactory _factory;
 
-    public LocationTests(WebApplicationFactory<Program> factory)
+    public LocationTests(SmartHomeApiFactory factory)
     {
         _factory = factory;
     }
