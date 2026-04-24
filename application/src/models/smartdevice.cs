@@ -13,8 +13,11 @@ public class SmartDevice
     
     public bool IsOnline { get; set; }
     
-    // JSON Metadata for flexible device settings
-    public Dictionary<string, string> Metadata { get; set; } = [];
+    public required string FirmwareVersion { get; set; }
+
+    public string? IpAddress { get; set; }
+    
+    public string? Room { get; set; }
 
     // Foreign Key and Navigation Property
     public int HomeLocationId { get; set; }
