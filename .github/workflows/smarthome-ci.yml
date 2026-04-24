@@ -20,12 +20,10 @@ jobs:
 
     - name: Restore Dependencies
       working-directory: ./application
-       # This step installs your NuGet packages
       run: dotnet restore
 
     - name: Build
       working-directory: ./application
-      # --no-restore makes it faster since we did it in the previous step
       run: dotnet build --no-restore --configuration Release
 
     # Upload the compiled binaries so the next job can use them
@@ -33,7 +31,7 @@ jobs:
       uses: actions/upload-artifact@v5
       with:
         name: build-output
-        path: application/src/bin/Release/net10.0/
+        path: application/
 
   test:
     name: Run Tests
@@ -52,9 +50,9 @@ jobs:
       uses: actions/download-artifact@v5
       with:
         name: build-output
-        path: application/src/bin/Release/net10.0/
+        path: application/
 
     - name: Run Tests
       working-directory: ./application/tests
-      # This will find your SmartHome.Tests project and run it
+      # Run tests
       run: dotnet test --no-build --configuration Release --verbosity normal

@@ -47,3 +47,5 @@ app.MapSmartHomeRoutes();
 
 app.Run();
 
+public partial class Program { }
+
